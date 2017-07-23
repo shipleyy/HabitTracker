@@ -1,6 +1,11 @@
 package com.android.habittracker.data;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
+
+import static android.content.ContentValues.TAG;
 
 public final class HabitContract {
 
@@ -23,5 +28,4 @@ public final class HabitContract {
         public static final int WORKOUT_CARDIO = 1;
         public static final int WORKOUT_FLEXIBILITY = 2;
     }
-
 }

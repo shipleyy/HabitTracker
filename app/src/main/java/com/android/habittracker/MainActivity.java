@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         insertWorkout();
 
         // Query the database for information
-        getDatabaseInfo();
+        readData();
 
     }
 
@@ -51,22 +51,9 @@ public class MainActivity extends AppCompatActivity {
         Log.v(TAG, "New row ID = " + newRowId);
     }
 
-    private void getDatabaseInfo() {
-
-        // Open a readable instance of the database
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        // Create the projection to select the columns to query for
-        String[] projection = {
-                HabitEntry._ID,
-                HabitEntry.COLUMN_DATE,
-                HabitEntry.COLUMN_WORKOUT_TYPE,
-                HabitEntry.COLUMN_WORKOUT_LENGTH
-        };
-
-        // Creating the cursor that holds the data from the query and log the response
-        Cursor cursor = db.query(HabitEntry.TABLE_NAME, projection, null, null, null, null, null);
-
+    private void readData() {
+        // Query the database and return a cursor with data
+        Cursor cursor = mDbHelper.readHabit();
         try {
 
             while (cursor.moveToNext()) {

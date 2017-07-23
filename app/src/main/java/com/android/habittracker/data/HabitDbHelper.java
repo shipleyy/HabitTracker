@@ -1,9 +1,13 @@
 package com.android.habittracker.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import com.android.habittracker.data.HabitContract.HabitEntry;
+
+import static android.content.ContentValues.TAG;
 
 public class HabitDbHelper extends SQLiteOpenHelper {
 
@@ -31,7 +35,25 @@ public class HabitDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
+
+    public Cursor readHabit() {
+
+        // Open a readable instance of the database
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Create the projection to select the columns to query for
+        String[] projection = {
+                HabitEntry._ID,
+                HabitEntry.COLUMN_DATE,
+                HabitEntry.COLUMN_WORKOUT_TYPE,
+                HabitEntry.COLUMN_WORKOUT_LENGTH
+        };
+
+        // Creating the cursor that holds the data from the query and log the response
+        Cursor cursor = db.query(HabitEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        return cursor;
     }
 }
